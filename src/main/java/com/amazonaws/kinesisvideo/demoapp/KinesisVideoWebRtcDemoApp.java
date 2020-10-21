@@ -3,21 +3,20 @@ package com.amazonaws.kinesisvideo.demoapp;
 import android.app.Application;
 import android.util.Log;
 
+import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSCredentialsProvider;
+import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.kinesisvideo.common.logging.LogLevel;
 import com.amazonaws.kinesisvideo.common.logging.OutputChannel;
 import com.amazonaws.mobile.client.AWSMobileClient;
 import com.amazonaws.mobile.client.Callback;
 import com.amazonaws.mobile.client.UserStateDetails;
-import com.amazonaws.mobile.config.AWSConfiguration;
 import com.amazonaws.mobileconnectors.kinesisvideo.util.AndroidLogOutputChannel;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.concurrent.CountDownLatch;
 
 public class KinesisVideoWebRtcDemoApp extends Application {
+    public static final AWSCredentials CREDENTIALS = new BasicAWSCredentials("YOUR ACCESS KEY ID", "YOUR ACCESS KEY SECRET");
     private static final String TAG = KinesisVideoWebRtcDemoApp.class.getSimpleName();
 
     public static AWSCredentialsProvider getCredentialsProvider() {
@@ -25,18 +24,6 @@ public class KinesisVideoWebRtcDemoApp extends Application {
         final com.amazonaws.kinesisvideo.common.logging.Log log =
                 new com.amazonaws.kinesisvideo.common.logging.Log(outputChannel, LogLevel.VERBOSE, TAG);
         return AWSMobileClient.getInstance();
-    }
-
-    public static String getRegion() {
-        AWSConfiguration configuration = AWSMobileClient.getInstance().getConfiguration();
-        JSONObject jsonObject = configuration.optJsonObject("CredentialsProvider");
-        String region = null;
-        try {
-            region = (String) ((JSONObject) (((JSONObject) jsonObject.get("CognitoIdentity")).get("Default"))).get("Region");
-        } catch (JSONException e) {
-            Log.e(TAG, "Got exception when extracting region from cognito setting.", e);
-        }
-        return region;
     }
 
     @Override

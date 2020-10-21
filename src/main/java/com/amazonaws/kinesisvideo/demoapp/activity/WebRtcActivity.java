@@ -154,7 +154,7 @@ public class WebRtcActivity extends AppCompatActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                mCreds = KinesisVideoWebRtcDemoApp.getCredentialsProvider().getCredentials();
+                mCreds = KinesisVideoWebRtcDemoApp.CREDENTIALS;
             }
         });
 
@@ -204,7 +204,7 @@ public class WebRtcActivity extends AppCompatActivity {
 
                 final IceCandidate iceCandidate = Event.parseIceCandidate(message);
 
-                if(iceCandidate != null) {
+                if (iceCandidate != null) {
                     // Remote sent us ICE candidates, add to local peer connection
                     final boolean addIce = localPeer.addIceCandidate(iceCandidate);
 
@@ -366,7 +366,7 @@ public class WebRtcActivity extends AppCompatActivity {
         if (mUrisList != null) {
             for (int i = 0; i < mUrisList.size(); i++) {
                 String turnServer = mUrisList.get(i).toString();
-                if( turnServer != null) {
+                if (turnServer != null) {
                     IceServer iceServer = IceServer.builder(turnServer.replace("[", "").replace("]", ""))
                             .setUsername(mUserNames.get(i))
                             .setPassword(mPasswords.get(i))
@@ -405,7 +405,7 @@ public class WebRtcActivity extends AppCompatActivity {
         localVideoTrack = peerConnectionFactory.createVideoTrack(VideoTrackID, videoSource);
         localVideoTrack.addSink(localView);
 
-        if(isAudioSent) {
+        if (isAudioSent) {
 
             AudioSource audioSource = peerConnectionFactory.createAudioSource(new MediaConstraints());
             localAudioTrack = peerConnectionFactory.createAudioTrack(AudioTrackID, audioSource);
@@ -601,7 +601,7 @@ public class WebRtcActivity extends AppCompatActivity {
 
         localPeer.addTrack(stream.videoTracks.get(0), Collections.singletonList(stream.getId()));
 
-        if(isAudioSent) {
+        if (isAudioSent) {
             if (!stream.addTrack(localAudioTrack)) {
 
                 Log.e(TAG, "Add audio track failed");
@@ -709,18 +709,18 @@ public class WebRtcActivity extends AppCompatActivity {
 
     private void addRemoteStreamToVideoView(MediaStream stream) {
 
-        final VideoTrack remoteVideoTrack = stream.videoTracks != null && stream.videoTracks.size() > 0? stream.videoTracks.get(0) : null;
+        final VideoTrack remoteVideoTrack = stream.videoTracks != null && stream.videoTracks.size() > 0 ? stream.videoTracks.get(0) : null;
 
-        AudioTrack remoteAudioTrack  = stream.audioTracks != null && stream.audioTracks.size() > 0 ? stream.audioTracks.get(0) : null;
+        AudioTrack remoteAudioTrack = stream.audioTracks != null && stream.audioTracks.size() > 0 ? stream.audioTracks.get(0) : null;
 
-        if(remoteAudioTrack != null ) {
+        if (remoteAudioTrack != null) {
             remoteAudioTrack.setEnabled(true);
             Log.d(TAG, "remoteAudioTrack received: State=" + remoteAudioTrack.state().name());
             audioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
             audioManager.setSpeakerphoneOn(true);
         }
 
-        if(remoteVideoTrack != null) {
+        if (remoteVideoTrack != null) {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -749,7 +749,7 @@ public class WebRtcActivity extends AppCompatActivity {
                     mCreds.getAWSSecretKey(), mCreds instanceof AWSSessionCredentials ? ((AWSSessionCredentials) mCreds).getSessionToken() : "", URI.create(mWssEndpoint), mRegion);
         } else {
             signedUri = AwsV4Signer.sign(URI.create(viewerEndpoint), mCreds.getAWSAccessKeyId(),
-                    mCreds.getAWSSecretKey(), mCreds instanceof AWSSessionCredentials ? ((AWSSessionCredentials)mCreds).getSessionToken() : "", URI.create(mWssEndpoint), mRegion);
+                    mCreds.getAWSSecretKey(), mCreds instanceof AWSSessionCredentials ? ((AWSSessionCredentials) mCreds).getSessionToken() : "", URI.create(mWssEndpoint), mRegion);
         }
         return signedUri;
     }
@@ -766,6 +766,7 @@ public class WebRtcActivity extends AppCompatActivity {
             private final int mMarginRight = displayMetrics.widthPixels;
             private final int mMarginBottom = displayMetrics.heightPixels;
             private int deltaOfDownXAndMargin, deltaOfDownYAndMargin;
+
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 final int X = (int) motionEvent.getRawX();
