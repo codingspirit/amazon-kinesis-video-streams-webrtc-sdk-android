@@ -358,7 +358,7 @@ public class WebRtcActivity extends AppCompatActivity {
 
         PeerConnection.IceServer stun = PeerConnection
                 .IceServer
-                .builder(String.format("stun:stun.kinesisvideo.%s.amazonaws.com:443", mRegion))
+                .builder(String.format("stun:stun.kinesisvideo.%s.amazonaws.com%s:443", mRegion, mRegion.contains("cn-") ? ".cn" : ""))
                 .createIceServer();
 
         peerIceServers.add(stun);
