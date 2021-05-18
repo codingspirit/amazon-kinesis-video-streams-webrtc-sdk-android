@@ -4,9 +4,9 @@
 
 ## About
 
-This repository aims to provide a sample to use AK/SK with aws AWS Kinesis Video Stream WebRTC SDK without Cognito.
+This repository aims to provide a sample to use AK/SK/STS with Amazon Kinesis Video Stream WebRTC SDK without Cognito.
 
-## Running KinesisVideoWebRTCDempApp Sample with AK/SK
+## Running KinesisVideoWebRTCDempApp Sample with AK/SK/STS
 
 ### 1. Download the WebRTC SDK for Android
 
@@ -18,7 +18,7 @@ This repository aims to provide a sample to use AK/SK with aws AWS Kinesis Video
 ### 2. Build and run the demo application using Android Studio
 
  1.  Import the downloaded SDK into the Android Studio integrated development environment by opening the **amazon-kinesis-video-streams-webrtc-sdkandroid/build.gradle** with `Open an existing Android Studio project`.
- 2.  You will need to put your **access key id** and **access key secretKey** at [KinesisVideoWebRtcDemoApp.java](https://github.com/codingspirit/amazon-kinesis-video-streams-webrtc-sdk-android/blob/f0ea9caeda13ab19e7e243d1bab9bb75e9ba37d9/src/main/java/com/amazonaws/kinesisvideo/demoapp/KinesisVideoWebRtcDemoApp.java#L23)
+ 2.  You will need to put your **access key id** and **access key secretKey** at [KinesisVideoWebRtcDemoApp.java](https://github.com/codingspirit/amazon-kinesis-video-streams-webrtc-sdk-android/blob/master/src/main/java/com/amazonaws/kinesisvideo/demoapp/KinesisVideoWebRtcDemoApp.java#L12).
  3.  Click gradle __Sync__ and __Build__
  4.  Run the demo application in simulator or in Android device (connected through USB).
 

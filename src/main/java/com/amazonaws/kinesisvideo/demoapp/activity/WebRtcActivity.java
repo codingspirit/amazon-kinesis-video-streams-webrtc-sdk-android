@@ -154,7 +154,7 @@ public class WebRtcActivity extends AppCompatActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                mCreds = KinesisVideoWebRtcDemoApp.CREDENTIALS;
+                mCreds = KinesisVideoWebRtcDemoApp.getCredentialsProvider().getCredentials();
             }
         });
 
